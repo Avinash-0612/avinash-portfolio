@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avinash Chinnabattuni | Data Engineer & BI Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#00d4ff',
+                        secondary: '#7c3aed',
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        surface: '#111111',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-hover:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+        
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+        
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, #00d4ff, #7c3aed);
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #00d4ff 0%, #7c3aed 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <span class="font-bold text-white text-sm">AC</span>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight">Avinash<span class="text-primary">.dev</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#skills" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#projects" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#experience" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                        <a href="#contact" class="bg-primary/10 text-primary border border-primary/50 hover:bg-primary/20 px-4 py-2 rounded-full text-sm font-medium transition-all">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-300 hover:text-white">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary">Projects</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary">Experience</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        <div class="absolute inset-0 grid-pattern opacity-20"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-block mb-4 px-4 py-1 rounded-full glass border border-primary/30 text-primary text-sm font-mono animate-float">
+                Available for Data Engineering & BI Roles
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+                Hi, I'm <span class="gradient-text">Avinash Chinnabattuni</span>
+            </h1>
+            <p class="mt-4 max-w-3xl mx-auto text-xl md:text-2xl text-gray-400 font-light leading-relaxed">
+                Data Engineer & BI Specialist crafting scalable data pipelines and enterprise analytics solutions. 
+                5+ years turning complex data into actionable insights at <span class="text-white font-semibold">Morgan Stanley</span> & <span class="text-white font-semibold">UnitedHealth</span>.
+            </p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projects" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white hover:shadow-lg hover:shadow-primary/25 transition-all transform hover:-translate-y-1">
+                    View My Projects
+                </a>
+                <a href="https://linkedin.com/in/avinash-chinnabattuni-12a9191a7" target="_blank" class="px-8 py-4 glass rounded-full font-semibold text-white hover:border-primary/50 transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    LinkedIn
+                </a>
+            </div>
+
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-primary">5+</div>
+                    <div class="text-sm text-gray-400 mt-1">Years Experience</div>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-primary">50+</div>
+                    <div class="text-sm text-gray-400 mt-1">Pipelines Built</div>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-primary">100+</div>
+                    <div class="text-sm text-gray-400 mt-1">Power BI Reports</div>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-primary">3</div>
+                    <div class="text-sm text-gray-400 mt-1">Cloud Platforms</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        Bridging the gap between <span class="gradient-text">raw data</span> and <span class="gradient-text">business intelligence</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        Currently completing my MS in Computer Science at Texas Tech University while bringing enterprise-scale data solutions to life. I specialize in Azure ecosystem, Snowflake, and Power BI, with deep expertise in healthcare and financial services data.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm font-medium">Azure Certified</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm font-medium">Power BI Data Analyst</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm font-medium">Open to Relocate</span>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-3xl blur-2xl opacity-20"></div>
+                    <div class="relative glass rounded-3xl p-8 border border-white/10">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                                    <i data-lucide="database" class="w-6 h-6 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Data Engineering</h3>
+                                    <p class="text-sm text-gray-400">Spark, Airflow, Azure Data Factory</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
+                                    <i data-lucide="bar-chart-3" class="w-6 h-6 text-secondary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Business Intelligence</h3>
+                                    <p class="text-sm text-gray-400">Power BI, DAX, Semantic Models</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                                    <i data-lucide="cloud" class="w-6 h-6 text-green-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Cloud Architecture</h3>
+                                    <p class="text-sm text-gray-400">Azure, AWS, Snowflake, Terraform</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-surface/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Technical <span class="gradient-text">Arsenal</span></h2>
+                <p class="text-gray-400">End-to-end data stack expertise</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass rounded-2xl p-6 glass-hover">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="workflow" class="w-5 h-5 text-primary"></i>
+                        Data Engineering
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Apache Spark</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">PySpark</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Azure Data Factory</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Databricks</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Apache Airflow</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Kafka</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">dbt</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Python</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 glass-hover">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="cloud-cog" class="w-5 h-5 text-secondary"></i>
+                        Cloud & Data Platforms
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Microsoft Azure</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Snowflake</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Azure Synapse</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Microsoft Fabric</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">AWS (S3, Glue, Redshift)</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Terraform</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Docker</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Kubernetes</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 glass-hover">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="pie-chart" class="w-5 h-5 text-green-400"></i>
+                        BI & Analytics
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Power BI</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">DAX</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Power Query (M)</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Tableau</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">SSIS/SSAS/SSRS</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Row-Level Security</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">Data Modeling</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10">SQL Server</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured <span class="gradient-text">Projects</span></h2>
+                <p class="text-gray-400 mb-8">Enterprise-grade solutions showcasing modern data architecture</p>
+                
+                <div class="flex justify-center gap-4">
+                    <button onclick="filterProjects('all')" class="filter-btn active px-6 py-2 rounded-full border border-primary bg-primary/20 text-primary text-sm font-medium transition-all" data-filter="all">All</button>
+                    <button onclick="filterProjects('de')" class="filter-btn px-6 py-2 rounded-full border border-white/20 text-gray-400 text-sm font-medium hover:border-primary hover:text-primary transition-all" data-filter="de">Data Engineering</button>
+                    <button onclick="filterProjects('bi')" class="filter-btn px-6 py-2 rounded-full border border-white/20 text-gray-400 text-sm font-medium hover:border-primary hover:text-primary transition-all" data-filter="bi">Power BI</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                
+                <!-- Data Engineering Project 1 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl glass border border-white/10" data-category="de">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-purple-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')] opacity-30"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">Real-time</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <i data-lucide="activity" class="w-8 h-8 text-white/80"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Real-Time Financial Trading Platform</h3>
+                        <p class="text-gray-400 text-sm mb-4">Morgan Stanley-inspired real-time stock market data pipeline processing 1M+ events/sec using Kafka, Spark Streaming, and Azure Event Hubs with instant Power BI visualization.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">Apache Kafka</span>
+                            <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded border border-orange-500/20">Spark Streaming</span>
+                            <span class="text-xs px-2 py-1 bg-blue-600/10 text-blue-400 rounded border border-blue-600/20">Azure Event Hubs</span>
+                            <span class="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 rounded border border-yellow-500/20">Power BI Real-time</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            </div>
+                            <span class="text-xs text-gray-500">Impact: 40% latency reduction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Engineering Project 2 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl glass border border-white/10" data-category="de">
+                    <div class="h-48 bg-gradient-to-br from-cyan-600 to-blue-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg2MHY2MEgwVjB6bTMwIDMwaDMwdjMwSDMwVjMwek0wIDMwaDMwdjMwSDBWMzB6IiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+PC9zdmc+')] opacity-30"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">Healthcare</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <i data-lucide="heart-pulse" class="w-8 h-8 text-white/80"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">FHIR Healthcare Data Lakehouse</h3>
+                        <p class="text-gray-400 text-sm mb-4">UnitedHealth-style modern data platform ingesting FHIR/HL7 medical data into Azure Data Lake, transformed via dbt + Spark, with HIPAA-compliant governance and Snowflake serving layer.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">Azure Data Lake</span>
+                            <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded border border-orange-500/20">Apache Spark</span>
+                            <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20">dbt</span>
+                            <span class="text-xs px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20">Snowflake</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            </div>
+                            <span class="text-xs text-gray-500">Impact: 99.9% HIPAA compliance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Engineering Project 3 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl glass border border-white/10" data-category="de">
+                    <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==')] opacity-30"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">Migration</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <i data-lucide="cloud-upload" class="w-8 h-8 text-white/80"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Enterprise Cloud Migration (On-prem → Azure)</h3>
+                        <p class="text-gray-400 text-sm mb-4">Complete migration of legacy SQL Server data warehouse to Azure Synapse Analytics using ADF, Terraform IaC, and CI/CD pipelines. Implemented medallion architecture (Bronze/Silver/Gold).</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 bg-blue-600/10 text-blue-400 rounded border border-blue-600/20">Azure Synapse</span>
+                            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">ADF</span>
+                            <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20">Terraform</span>
+                            <span class="text-xs px-2 py-1 bg-gray-500/10 text-gray-400 rounded border border-gray-500/20">Delta Lake</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            </div>
+                            <span class="text-xs text-gray-500">Impact: 60% cost reduction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Power BI Project 1 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl glass border border-white/10" data-category="bi">
+                    <div class="h-48 bg-gradient-to-br from-yellow-600 to-orange-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjI1IiBoZWlnaHQ9IjI1IiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+PC9zdmc+')] opacity-30"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">Financial</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <i data-lucide="line-chart" class="w-8 h-8 text-white/80"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Executive Financial Dashboard Suite</h3>
+                        <p class="text-gray-400 text-sm mb-4">Morgan Stanley-style executive dashboard with advanced DAX calculations, what-if parameters, Row-Level Security (RLS) for 100+ users, and real-time market data integration via REST APIs.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 bg-yellow-600/10 text-yellow-400 rounded border border-yellow-600/20">Power BI</span>
+                            <span class="text-xs px-2 py-1 bg-orange-500/10 text-orange-400 rounded border border-orange-500/20">DAX</span>
+                            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">RLS</span>
+                            <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded border border-green-500/20">REST API</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            </div>
+                            <span class="text-xs text-gray-500">Impact: C-level adoption</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Power BI Project 2 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl glass border border-white/10" data-category="bi">
+                    <div class="h-48 bg-gradient-to-br from-green-600 to-teal-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgNjBWMGw2MCA2MCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] opacity-30"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">Healthcare</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <i data-lucide="stethoscope" class="w-8 h-8 text-white/80"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Clinical Operations Analytics</h3>
+                        <p class="text-gray-400 text-sm mb-4">UnitedHealth-inspired patient flow analytics with bed occupancy forecasting, readmission risk models (integrated Azure ML), and HIPAA-compliant patient demographics with automated alerts.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 bg-yellow-600/10 text-yellow-400 rounded border border-yellow-600/20">Power BI</span>
+                            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">Azure ML</span>
+                            <span class="text-xs px-2 py-1 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20">FHIR</span>
+                            <span class="text-xs px-2 py-1 bg-teal-500/10 text-teal-400 rounded border border-teal-500/20">Forecasting</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            </div>
+                            <span class="text-xs text-gray-500">Impact: 15% efficiency gain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Power BI Project 3 -->
+                <div class="project-card group relative overflow-hidden rounded-2xl glass border border-white/10" data-category="bi">
+                    <div class="h-48 bg-gradient-to-br from-red-600 to-pink-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-30"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">Supply Chain</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <i data-lucide="truck" class="w-8 h-8 text-white/80"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Supply Chain Intelligence Hub</h3>
+                        <p class="text-gray-400 text-sm mb-4">End-to-end supply chain visibility with inventory optimization, supplier performance scorecards, predictive maintenance alerts, and drill-through capability to transaction-level details.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 bg-yellow-600/10 text-yellow-400 rounded border border-yellow-600/20">Power BI</span>
+                            <span class="text-xs px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20">Power Automate</span>
+                            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">SQL Server</span>
+                            <span class="text-xs px-2 py-1 bg-pink-500/10 text-pink-400 rounded border border-pink-500/20">Paginated Reports</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                            </div>
+                            <span class="text-xs text-gray-500">Impact: $2M inventory savings</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section id="experience" class="py-20 bg-surface/30">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Professional <span class="gradient-text">Journey</span></h2>
+                <p class="text-gray-400">5+ years of enterprise data architecture experience</p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 timeline-line rounded-full"></div>
+                
+                <!-- Morgan Stanley -->
+                <div class="relative mb-12 md:flex items-center justify-between group">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-dark z-10 group-hover:scale-150 transition-transform"></div>
+                    <div class="ml-12 md:ml-0 md:w-5/12 glass rounded-2xl p-6 border border-white/10 hover:border-primary/50 transition-all">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                                <i data-lucide="landmark" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold">Morgan Stanley</h3>
+                                <p class="text-sm text-primary">Data Engineer</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3">New Jersey | Jun 2024 - Present</p>
+                        <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside">
+                            <li>Built scalable pipelines using PySpark & Azure Data Factory</li>
+                            <li>Implemented dbt models for Snowflake data transformation</li>
+                            <li>Developed enterprise Power BI solutions with RLS for 100+ users</li>
+                            <li>Terraform IaC deployment for cloud infrastructure</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- UnitedHealth -->
+                <div class="relative mb-12 md:flex items-center justify-between flex-row-reverse group">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-secondary rounded-full border-4 border-dark z-10 group-hover:scale-150 transition-transform"></div>
+                    <div class="ml-12 md:ml-0 md:w-5/12 glass rounded-2xl p-6 border border-white/10 hover:border-secondary/50 transition-all">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                                <i data-lucide="heart-pulse" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold">UnitedHealth Group</h3>
+                                <p class="text-sm text-secondary">Data Engineer (Analytics & BI)</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3">Hyderabad, India | Mar 2022 - July 2023</p>
+                        <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside">
+                            <li>Designed ETL architectures for Epic Clarity & FHIR data</li>
+                            <li>Built SSIS packages and SSAS multidimensional cubes</li>
+                            <li>Migrated on-prem databases to Azure using ADF</li>
+                            <li>Automated workflows using Apache Airflow (70% reliability improvement)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Newgen -->
+                <div class="relative md:flex items-center justify-between group">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-dark z-10 group-hover:scale-150 transition-transform"></div>
+                    <div class="ml-12 md:ml-0 md:w-5/12 glass rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-all">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                                <i data-lucide="code-2" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold">Newgen Software</h3>
+                                <p class="text-sm text-purple-400">Data Engineer</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3">New Delhi, India | Jan 2020 - Feb 2022</p>
+                        <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside">
+                            <li>Built ETL pipelines processing data into Hadoop/S3 Parquet format</li>
+                            <li>Developed PySpark applications for large-scale data processing</li>
+                            <li>Created RESTful APIs using Django REST Framework</li>
+                            <li>Implemented CI/CD with Docker and Kubernetes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certs -->
+    <section class="py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass rounded-2xl p-6 flex items-center gap-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-600 to-black rounded-full flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">MS in Computer Science</h3>
+                        <p class="text-primary">Texas Tech University</p>
+                        <p class="text-sm text-gray-400">Lubbock, Texas • Graduating May 2025</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 flex items-center gap-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-yellow-600 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="badge-check" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Microsoft Certified</h3>
+                        <p class="text-primary">Power BI Data Analyst</p>
+                        <p class="text-sm text-gray-400">PL-300 Certification</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Build Something <span class="gradient-text">Amazing</span></h2>
+            <p class="text-gray-400 mb-8">Open to Data Engineering and Power BI opportunities across the US</p>
+            
+            <div class="glass rounded-3xl p-8 border border-white/10">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <a href="mailto:avinashchinnabattuni@gmail.com" class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                            <i data-lucide="mail" class="w-6 h-6 text-primary"></i>
+                        </div>
+                        <span class="text-sm text-gray-400">Email</span>
+                        <span class="font-medium">avinashchinnabattuni@gmail.com</span>
+                    </a>
+                    
+                    <a href="tel:+18067021853" class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center group-hover:bg-secondary/30 transition-colors">
+                            <i data-lucide="phone" class="w-6 h-6 text-secondary"></i>
+                        </div>
+                        <span class="text-sm text-gray-400">Phone</span>
+                        <span class="font-medium">+1 (806) 702-1853</span>
+                    </a>
+                    
+                    <a href="https://linkedin.com/in/avinash-chinnabattuni-12a9191a7" target="_blank" class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                            <i data-lucide="linkedin" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <span class="text-sm text-gray-400">LinkedIn</span>
+                        <span class="font-medium">Connect With Me</span>
+                    </a>
+                </div>
+                
+                <div class="pt-8 border-t border-white/10">
+                    <p class="text-sm text-gray-500">Open to Relocate • Authorized to work in the US</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/10 text-center text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>&copy; 2025 Avinash Chinnabattuni. Built with modern web technologies.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Project filtering
+        function filterProjects(category) {
+            const projects = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update buttons
+            buttons.forEach(btn => {
+                if(btn.dataset.filter === category) {
+                    btn.classList.add('bg-primary/20', 'text-primary', 'border-primary');
+                    btn.classList.remove('text-gray-400', 'border-white/20');
+                } else {
+                    btn.classList.remove('bg-primary/20', 'text-primary', 'border-primary');
+                    btn.classList.add('text-gray-400', 'border-white/20');
+                }
+            });
+            
+            // Filter projects with animation
+            projects.forEach(project => {
+                if(category === 'all' || project.dataset.category === category) {
+                    project.style.display = 'block';
+                    setTimeout(() => {
+                        project.style.opacity = '1';
+                        project.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    project.style.opacity = '0';
+                    project.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        project.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Add scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.project-card, .glass-hover').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
